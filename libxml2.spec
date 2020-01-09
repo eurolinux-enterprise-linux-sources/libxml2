@@ -1,7 +1,7 @@
 Summary: Library providing XML and HTML support
 Name: libxml2
 Version: 2.7.6
-Release: 21%{?dist}%{?extra_release}
+Release: 21%{?dist}%{?extra_release}.1
 License: MIT
 Group: Development/Libraries
 Source: ftp://xmlsoft.org/libxml2/libxml2-%{version}.tar.gz
@@ -78,6 +78,21 @@ Patch66: libxml2-CVE-2015-8242-Buffer-overead-with-HTML-parser-in-push-mode.patc
 Patch67: libxml2-libxml-violates-the-zlib-interface-and-crashes.patch
 Patch68: libxml2-Fix-large-parse-of-file-from-memory.patch
 
+Patch69: libxml2-Heap-based-buffer-overread-in-xmlNextChar.patch
+Patch70: libxml2-Bug-763071-heap-buffer-overflow-in-xmlStrncat-https-bugzilla.gnome.org-show_bug.cgi-id-763071.patch
+Patch71: libxml2-Bug-757711-heap-buffer-overflow-in-xmlFAParsePosCharGroup-https-bugzilla.gnome.org-show_bug.cgi-id-757711.patch
+Patch72: libxml2-Bug-758588-Heap-based-buffer-overread-in-xmlParserPrintFileContextInternal-https-bugzilla.gnome.org-show_bug.cgi-id-758588.patch
+Patch73: libxml2-Bug-758605-Heap-based-buffer-overread-in-xmlDictAddString-https-bugzilla.gnome.org-show_bug.cgi-id-758605.patch
+Patch74: libxml2-Bug-759398-Heap-use-after-free-in-xmlDictComputeFastKey-https-bugzilla.gnome.org-show_bug.cgi-id-759398.patch
+Patch75: libxml2-Fix-inappropriate-fetch-of-entities-content.patch
+Patch76: libxml2-Heap-use-after-free-in-htmlParsePubidLiteral-and-htmlParseSystemiteral.patch
+Patch77: libxml2-Heap-use-after-free-in-xmlSAX2AttributeNs.patch
+Patch78: libxml2-Heap-based-buffer-underreads-due-to-xmlParseName.patch
+Patch79: libxml2-Heap-based-buffer-overread-in-htmlCurrentChar.patch
+Patch80: libxml2-Add-missing-increments-of-recursion-depth-counter-to-XML-parser.patch
+Patch81: libxml2-Avoid-building-recursive-entities.patch
+Patch82: libxml2-Fix-some-format-string-warnings-with-possible-format-string-vulnerability.patch
+Patch83: libxml2-More-format-string-warnings-with-possible-format-string-vulnerability.patch
 
 %description
 This library allows to manipulate XML files. It includes support
@@ -205,6 +220,22 @@ at parse time or later once the document has been modified.
 %patch67 -p1
 %patch68 -p1
 
+%patch69 -p1
+%patch70 -p1
+%patch71 -p1
+%patch72 -p1
+%patch73 -p1
+%patch74 -p1
+%patch75 -p1
+%patch76 -p1
+%patch77 -p1
+%patch78 -p1
+%patch79 -p1
+%patch80 -p1
+%patch81 -p1
+%patch82 -p1
+%patch83 -p1
+
 %build
 %configure
 make %{_smp_mflags}
@@ -278,6 +309,23 @@ rm -fr %{buildroot}
 %doc doc/python.html
 
 %changelog
+* Tue Jun  7 2016 Daniel Veillard <veillard@redhat.com> - 2.7.6-21.el6.8.1
+- Heap-based buffer overread in xmlNextChar (CVE-2016-1762)
+- Bug 763071: Heap-buffer-overflow in xmlStrncat <https://bugzilla.gnome.org/show_bug.cgi?id=763071> (CVE-2016-1834)
+- Bug 757711: Heap-buffer-overflow in xmlFAParsePosCharGroup <https://bugzilla.gnome.org/show_bug.cgi?id=757711> (CVE-2016-1840)
+- Bug 758588: Heap-based buffer overread in xmlParserPrintFileContextInternal <https://bugzilla.gnome.org/show_bug.cgi?id=758588> (CVE-2016-1838)
+- Bug 758605: Heap-based buffer overread in xmlDictAddString <https://bugzilla.gnome.org/show_bug.cgi?id=758605> (CVE-2016-1839)
+- Bug 759398: Heap use-after-free in xmlDictComputeFastKey <https://bugzilla.gnome.org/show_bug.cgi?id=759398> (CVE-2016-1836)
+- Fix inappropriate fetch of entities content (CVE-2016-4449)
+- Heap use-after-free in htmlParsePubidLiteral and htmlParseSystemiteral (CVE-2016-1837)
+- Heap use-after-free in xmlSAX2AttributeNs (CVE-2016-1835)
+- Heap-based buffer-underreads due to xmlParseName (CVE-2016-4447)
+- Heap-based buffer overread in htmlCurrentChar (CVE-2016-1833)
+- Add missing increments of recursion depth counter to XML parser. (CVE-2016-3705)
+- Avoid building recursive entities (CVE-2016-3627)
+- Fix some format string warnings with possible format string vulnerability (CVE-2016-4448)
+- More format string warnings with possible format string vulnerability (CVE-2016-4448)
+
 * Sun Jan 24 2016 Daniel Veillard <veillard@redhat.com> - libxml2-2.7.6-21.el6.8
 - Fix large parse of file from memory (rhbz#862969)
 
