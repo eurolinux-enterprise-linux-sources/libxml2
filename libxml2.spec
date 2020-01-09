@@ -1,7 +1,7 @@
 Summary: Library providing XML and HTML support
 Name: libxml2
 Version: 2.7.6
-Release: 17%{?dist}%{?extra_release}.1
+Release: 20%{?dist}%{?extra_release}
 License: MIT
 Group: Development/Libraries
 Source: ftp://xmlsoft.org/libxml2/libxml2-%{version}.tar.gz
@@ -53,6 +53,10 @@ Patch41: libxml2-Do-not-fetch-external-parameter-entities.patch
 Patch42: libxml2-Improve-handling-of-xmlStopParser.patch
 Patch43: libxml2-Fix-regression-introduced-by-CVE-2014-0191.patch
 Patch44: CVE-2014-3660-rhel6.patch
+Patch45: libxml2-Fix-html-serialization-error-and-htmlSetMetaEncoding.patch
+Patch46: libxml2-Fix-missing-entities-after-CVE-2014-3660-fix.patch
+Patch47: libxml2-Stop-parsing-on-entities-boundaries-errors.patch
+Patch48: CVE-2015-1819.RHEL-6.patch
 
 
 %description
@@ -156,6 +160,10 @@ at parse time or later once the document has been modified.
 %patch42 -p1
 %patch43 -p1
 %patch44 -p1
+%patch45 -p1
+%patch46 -p1
+%patch47 -p1
+%patch48 -p1
 
 %build
 %configure
@@ -230,8 +238,16 @@ rm -fr %{buildroot}
 %doc doc/python.html
 
 %changelog
-* Sat Oct 11 2014 Daniel Veillard <veillard@redhat.com> - libxml2-2.7.6-17.el6.1
-- CVE-2014-3660 denial of service via recursive entity expansion (rhbz#1149085)
+* Wed May  6 2015 Daniel Veillard <veillard@redhat.com> - libxml2-2.7.6-20.el6
+- CVE-2015-1819 Enforce the reader to run in constant memory(rhbz#1214163)
+
+* Mon Mar 23 2015 Daniel Veillard <veillard@redhat.com> - libxml2-2.7.6-19.el6
+- Stop parsing on entities boundaries errors
+- Fix missing entities after CVE-2014-3660 fix (rhbz#1149086)
+
+* Mon Mar 16 2015 Daniel Veillard <veillard@redhat.com> - libxml2-2.7.6-18.el6
+- CVE-2014-3660 denial of service via recursive entity expansion (rhbz#1149086)
+- Fix html serialization error and htmlSetMetaEncoding (rhbz#1004513)
 
 * Wed Jun 11 2014 Daniel Veillard <veillard@redhat.com> - libxml2-2.7.6-17.el6
 - Fix a set of regressions introduced in CVE-2014-0191 (rhbz#1105011)
