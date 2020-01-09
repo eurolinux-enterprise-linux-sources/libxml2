@@ -1,7 +1,7 @@
 Summary: Library providing XML and HTML support
 Name: libxml2
 Version: 2.7.6
-Release: 20%{?dist}%{?extra_release}
+Release: 20%{?dist}%{?extra_release}.1
 License: MIT
 Group: Development/Libraries
 Source: ftp://xmlsoft.org/libxml2/libxml2-%{version}.tar.gz
@@ -57,6 +57,25 @@ Patch45: libxml2-Fix-html-serialization-error-and-htmlSetMetaEncoding.patch
 Patch46: libxml2-Fix-missing-entities-after-CVE-2014-3660-fix.patch
 Patch47: libxml2-Stop-parsing-on-entities-boundaries-errors.patch
 Patch48: CVE-2015-1819.RHEL-6.patch
+Patch49: libxml2-Cleanup-conditional-section-error-handling.patch
+Patch50: libxml2-Fail-parsing-early-on-if-encoding-conversion-failed.patch
+Patch51: libxml2-Another-variation-of-overflow-in-Conditional-sections.patch
+Patch52: libxml2-Fix-an-error-in-previous-Conditional-section-patch.patch
+Patch53: libxml2-Fix-parsing-short-unclosed-comment-uninitialized-access.patch
+Patch54: libxml2-Avoid-extra-processing-of-MarkupDecl-when-EOF.patch
+Patch55: libxml2-Avoid-processing-entities-after-encoding-conversion-failures.patch
+Patch56: libxml2-xmlStopParser-reset-errNo.patch
+Patch57: libxml2-CVE-2015-7497-Avoid-an-heap-buffer-overflow-in-xmlDictComputeFastQKey.patch
+Patch58: libxml2-CVE-2015-5312-Another-entity-expansion-issue.patch
+Patch59: libxml2-Add-xmlHaltParser-to-stop-the-parser.patch
+Patch60: libxml2-Reuse-xmlHaltParser-where-it-makes-sense.patch
+Patch61: libxml2-Do-not-print-error-context-when-there-is-none.patch
+Patch62: libxml2-Detect-incoherency-on-GROW.patch
+Patch63: libxml2-Fix-some-loop-issues-embedding-NEXT.patch
+Patch64: libxml2-Bug-on-creating-new-stream-from-entity.patch
+Patch65: libxml2-CVE-2015-7500-Fix-memory-access-error-due-to-incorrect-entities-boundaries.patch
+Patch66: libxml2-CVE-2015-8242-Buffer-overead-with-HTML-parser-in-push-mode.patch
+Patch67: libxml2-libxml-violates-the-zlib-interface-and-crashes.patch
 
 
 %description
@@ -164,6 +183,25 @@ at parse time or later once the document has been modified.
 %patch46 -p1
 %patch47 -p1
 %patch48 -p1
+%patch49 -p1
+%patch50 -p1
+%patch51 -p1
+%patch52 -p1
+%patch53 -p1
+%patch54 -p1
+%patch55 -p1
+%patch56 -p1
+%patch57 -p1
+%patch58 -p1
+%patch59 -p1
+%patch60 -p1
+%patch61 -p1
+%patch62 -p1
+%patch63 -p1
+%patch64 -p1
+%patch65 -p1
+%patch66 -p1
+%patch67 -p1
 
 %build
 %configure
@@ -238,6 +276,22 @@ rm -fr %{buildroot}
 %doc doc/python.html
 
 %changelog
+* Mon Nov 30 2015 Daniel Veillard <veillard@redhat.com> - 2.7.6-20.1
+- Fix a series of CVEs (rhbz#1286495)
+- CVE-2015-7941 Cleanup conditional section error handling
+- CVE-2015-8317 Fail parsing early on if encoding conversion failed
+- CVE-2015-7942 Another variation of overflow in Conditional sections
+- CVE-2015-7942 Fix an error in previous Conditional section patch
+- Fix parsing short unclosed comment uninitialized access
+- CVE-2015-7498 Avoid processing entities after encoding conversion failures
+- CVE-2015-7497 Avoid an heap buffer overflow in xmlDictComputeFastQKey
+- CVE-2015-5312 Another entity expansion issue
+- CVE-2015-7499 Add xmlHaltParser() to stop the parser
+- CVE-2015-7499 Detect incoherency on GROW
+- CVE-2015-7500 Fix memory access error due to incorrect entities boundaries
+- CVE-2015-8242 Buffer overead with HTML parser in push mode
+- Libxml violates the zlib interface and crashes
+
 * Wed May  6 2015 Daniel Veillard <veillard@redhat.com> - libxml2-2.7.6-20.el6
 - CVE-2015-1819 Enforce the reader to run in constant memory(rhbz#1214163)
 
