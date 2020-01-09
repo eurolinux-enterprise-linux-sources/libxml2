@@ -1,7 +1,7 @@
 Summary: Library providing XML and HTML support
 Name: libxml2
 Version: 2.7.6
-Release: 20%{?dist}%{?extra_release}.1
+Release: 21%{?dist}%{?extra_release}
 License: MIT
 Group: Development/Libraries
 Source: ftp://xmlsoft.org/libxml2/libxml2-%{version}.tar.gz
@@ -76,6 +76,7 @@ Patch64: libxml2-Bug-on-creating-new-stream-from-entity.patch
 Patch65: libxml2-CVE-2015-7500-Fix-memory-access-error-due-to-incorrect-entities-boundaries.patch
 Patch66: libxml2-CVE-2015-8242-Buffer-overead-with-HTML-parser-in-push-mode.patch
 Patch67: libxml2-libxml-violates-the-zlib-interface-and-crashes.patch
+Patch68: libxml2-Fix-large-parse-of-file-from-memory.patch
 
 
 %description
@@ -202,6 +203,7 @@ at parse time or later once the document has been modified.
 %patch65 -p1
 %patch66 -p1
 %patch67 -p1
+%patch68 -p1
 
 %build
 %configure
@@ -276,6 +278,9 @@ rm -fr %{buildroot}
 %doc doc/python.html
 
 %changelog
+* Sun Jan 24 2016 Daniel Veillard <veillard@redhat.com> - libxml2-2.7.6-21.el6.8
+- Fix large parse of file from memory (rhbz#862969)
+
 * Mon Nov 30 2015 Daniel Veillard <veillard@redhat.com> - 2.7.6-20.1
 - Fix a series of CVEs (rhbz#1286495)
 - CVE-2015-7941 Cleanup conditional section error handling
