@@ -1,0 +1,31 @@
+From 519455f1d543b1aa8f560dac03ec4127dfbab038 Mon Sep 17 00:00:00 2001
+From: Daniel Veillard <veillard@redhat.com>
+Date: Tue, 27 Oct 2015 10:53:44 +0800
+Subject: [PATCH] Fix an error in previous Conditional section patch
+To: libvir-list@redhat.com
+
+an off by one mistake in the change, led to error on correct
+document where the end of the included entity was exactly
+the end of the conditional section, leading to regtest failure
+
+Signed-off-by: Daniel Veillard <veillard@redhat.com>
+---
+ parser.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/parser.c b/parser.c
+index 4926ab0..b56d94c 100644
+--- a/parser.c
++++ b/parser.c
+@@ -6896,7 +6896,7 @@ xmlParseConditionalSections(xmlParserCtxtPtr ctxt) {
+ 				 NULL, NULL);
+ 	}
+ 	if ((ctxt-> instate != XML_PARSER_EOF) &&
+-	    ((ctxt->input->cur + 3) < ctxt->input->end))
++	    ((ctxt->input->cur + 3) <= ctxt->input->end))
+ 	    SKIP(3);
+     }
+ }
+-- 
+2.5.0
+

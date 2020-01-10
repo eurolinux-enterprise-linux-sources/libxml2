@@ -1,0 +1,30 @@
+From 3154c607f22497fa843b8ad8a596ef5523d42ee6 Mon Sep 17 00:00:00 2001
+From: Daniel Veillard <veillard@redhat.com>
+Date: Fri, 20 Nov 2015 15:07:38 +0800
+Subject: [PATCH] Bug on creating new stream from entity
+To: libvir-list@redhat.com
+
+sometimes the entity could have a lenght of 0, i.e. it wasn't
+parsed or used yet, and we ended up with an incoherent input state
+
+Signed-off-by: Daniel Veillard <veillard@redhat.com>
+---
+ parserInternals.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/parserInternals.c b/parserInternals.c
+index 9acfea4..1fe1f6a 100644
+--- a/parserInternals.c
++++ b/parserInternals.c
+@@ -1459,6 +1459,8 @@ xmlNewEntityInputStream(xmlParserCtxtPtr ctxt, xmlEntityPtr entity) {
+     if (entity->URI != NULL)
+ 	input->filename = (char *) xmlStrdup((xmlChar *) entity->URI);
+     input->base = entity->content;
++    if (entity->length == 0)
++        entity->length = xmlStrlen(entity->content);
+     input->cur = entity->content;
+     input->length = entity->length;
+     input->end = &entity->content[input->length];
+-- 
+2.5.0
+

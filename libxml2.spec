@@ -4,7 +4,7 @@
 Summary: Library providing XML and HTML support
 Name: libxml2
 Version: 2.9.1
-Release: 5%{?dist}%{?extra_release}.2
+Release: 6%{?dist}%{?extra_release}.2
 License: MIT
 Group: Development/Libraries
 Source: ftp://xmlsoft.org/libxml2/libxml2-%{version}.tar.gz
@@ -19,6 +19,26 @@ Patch101: CVE-2014-3660-rhel7.patch
 Patch102: libxml2-Fix-missing-entities-after-CVE-2014-3660-fix.patch
 Patch103: libxml2-Do-not-fetch-external-parameter-entities.patch
 Patch104: libxml2-Fix-regression-introduced-by-CVE-2014-0191.patch
+Patch105: libxml2-Stop-parsing-on-entities-boundaries-errors.patch
+Patch106: libxml2-Cleanup-conditional-section-error-handling.patch
+Patch107: libxml2-Fail-parsing-early-on-if-encoding-conversion-failed.patch
+Patch108: libxml2-Another-variation-of-overflow-in-Conditional-sections.patch
+Patch109: libxml2-Fix-an-error-in-previous-Conditional-section-patch.patch
+Patch110: libxml2-Fix-parsing-short-unclosed-comment-uninitialized-access.patch
+Patch111: libxml2-Avoid-extra-processing-of-MarkupDecl-when-EOF.patch
+Patch112: libxml2-Avoid-processing-entities-after-encoding-conversion-failures.patch
+Patch113: libxml2-xmlStopParser-reset-errNo.patch
+Patch114: libxml2-CVE-2015-7497-Avoid-an-heap-buffer-overflow-in-xmlDictComputeFastQKey.patch
+Patch115: libxml2-CVE-2015-5312-Another-entity-expansion-issue.patch
+Patch116: libxml2-Add-xmlHaltParser-to-stop-the-parser.patch
+Patch117: libxml2-Reuse-xmlHaltParser-where-it-makes-sense.patch
+Patch118: libxml2-Do-not-print-error-context-when-there-is-none.patch
+Patch119: libxml2-Detect-incoherency-on-GROW.patch
+Patch120: libxml2-Fix-some-loop-issues-embedding-NEXT.patch
+Patch121: libxml2-Bug-on-creating-new-stream-from-entity.patch
+Patch122: libxml2-CVE-2015-7500-Fix-memory-access-error-due-to-incorrect-entities-boundaries.patch
+Patch123: libxml2-CVE-2015-8242-Buffer-overead-with-HTML-parser-in-push-mode.patch
+Patch124: libxml2-CVE-2015-1819-Enforce-the-reader-to-run-in-constant-memory.patch
 
 %description
 This library allows to manipulate XML files. It includes support
@@ -86,6 +106,26 @@ at parse time or later once the document has been modified.
 %patch102 -p1
 %patch103 -p1
 %patch104 -p1
+%patch105 -p1
+%patch106 -p1
+%patch107 -p1
+%patch108 -p1
+%patch109 -p1
+%patch110 -p1
+%patch111 -p1
+%patch112 -p1
+%patch113 -p1
+%patch114 -p1
+%patch115 -p1
+%patch116 -p1
+%patch117 -p1
+%patch118 -p1
+%patch119 -p1
+%patch120 -p1
+%patch121 -p1
+%patch122 -p1
+%patch123 -p1
+%patch124 -p1
 
 %build
 %configure
@@ -168,9 +208,26 @@ rm -fr %{buildroot}
 %doc doc/python.html
 
 %changelog
-* Mon Mar 23 2015 Daniel Veillard <veillard@redhat.com> - 2.9.1-5.2
+* Mon Nov 30 2015 Daniel Veillard <veillard@redhat.com> - 2.9.1-6.2
+- Fix a series of CVEs (rhbz#1286496)
+- CVE-2015-7941 Stop parsing on entities boundaries errors
+- CVE-2015-7941 Cleanup conditional section error handling
+- CVE-2015-8317 Fail parsing early on if encoding conversion failed
+- CVE-2015-7942 Another variation of overflow in Conditional sections
+- CVE-2015-7942 Fix an error in previous Conditional section patch
+- Fix parsing short unclosed comment uninitialized access
+- CVE-2015-7498 Avoid processing entities after encoding conversion failures
+- CVE-2015-7497 Avoid an heap buffer overflow in xmlDictComputeFastQKey
+- CVE-2015-5312 Another entity expansion issue
+- CVE-2015-7499 Add xmlHaltParser() to stop the parser
+- CVE-2015-7499 Detect incoherency on GROW
+- CVE-2015-7500 Fix memory access error due to incorrect entities boundaries
+- CVE-2015-8242 Buffer overead with HTML parser in push mode
+- CVE-2015-1819 Enforce the reader to run in constant memory
+
+* Mon Mar 23 2015 Daniel Veillard <veillard@redhat.com> - 2.9.1-6
 - Fix missing entities after CVE-2014-3660 fix
-- CVE-2014-0191 Do not fetch external parameter entities (rhbz#1195649)
+- CVE-2014-0191 Do not fetch external parameter entities (rhbz#1195650)
 - Fix regressions introduced by CVE-2014-0191 patch
 
 * Sat Oct 11 2014 Daniel Veillard <veillard@redhat.com> - 2.9.1-5.1
