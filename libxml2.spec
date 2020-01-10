@@ -4,7 +4,7 @@
 Summary: Library providing XML and HTML support
 Name: libxml2
 Version: 2.9.1
-Release: 5%{?dist}%{?extra_release}
+Release: 5%{?dist}%{?extra_release}.1
 License: MIT
 Group: Development/Libraries
 Source: ftp://xmlsoft.org/libxml2/libxml2-%{version}.tar.gz
@@ -15,6 +15,7 @@ Patch0: libxml2-multilib.patch
 Patch1: libxml2-2.9.0-do-not-check-crc.patch
 
 Patch100: libxml2-Fix-a-regression-in-xmlGetDocCompressMode.patch
+Patch101: CVE-2014-3660-rhel7.patch
 
 %description
 This library allows to manipulate XML files. It includes support
@@ -78,6 +79,7 @@ at parse time or later once the document has been modified.
 %patch1 -p1 -b .do-not-check-crc
 
 %patch100 -p1
+%patch101 -p1
 
 %build
 %configure
@@ -160,6 +162,9 @@ rm -fr %{buildroot}
 %doc doc/python.html
 
 %changelog
+* Sat Oct 11 2014 Daniel Veillard <veillard@redhat.com> - 2.9.1-5.1
+- CVE-2014-3660 denial of service via recursive entity expansion (rhbz#1149087)
+
 * Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 2.9.1-5
 - Mass rebuild 2014-01-24
 
