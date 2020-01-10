@@ -4,7 +4,7 @@
 Summary: Library providing XML and HTML support
 Name: libxml2
 Version: 2.9.1
-Release: 5%{?dist}%{?extra_release}.1
+Release: 5%{?dist}%{?extra_release}.2
 License: MIT
 Group: Development/Libraries
 Source: ftp://xmlsoft.org/libxml2/libxml2-%{version}.tar.gz
@@ -16,6 +16,9 @@ Patch1: libxml2-2.9.0-do-not-check-crc.patch
 
 Patch100: libxml2-Fix-a-regression-in-xmlGetDocCompressMode.patch
 Patch101: CVE-2014-3660-rhel7.patch
+Patch102: libxml2-Fix-missing-entities-after-CVE-2014-3660-fix.patch
+Patch103: libxml2-Do-not-fetch-external-parameter-entities.patch
+Patch104: libxml2-Fix-regression-introduced-by-CVE-2014-0191.patch
 
 %description
 This library allows to manipulate XML files. It includes support
@@ -80,6 +83,9 @@ at parse time or later once the document has been modified.
 
 %patch100 -p1
 %patch101 -p1
+%patch102 -p1
+%patch103 -p1
+%patch104 -p1
 
 %build
 %configure
@@ -162,6 +168,11 @@ rm -fr %{buildroot}
 %doc doc/python.html
 
 %changelog
+* Mon Mar 23 2015 Daniel Veillard <veillard@redhat.com> - 2.9.1-5.2
+- Fix missing entities after CVE-2014-3660 fix
+- CVE-2014-0191 Do not fetch external parameter entities (rhbz#1195649)
+- Fix regressions introduced by CVE-2014-0191 patch
+
 * Sat Oct 11 2014 Daniel Veillard <veillard@redhat.com> - 2.9.1-5.1
 - CVE-2014-3660 denial of service via recursive entity expansion (rhbz#1149087)
 
