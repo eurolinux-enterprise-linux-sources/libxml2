@@ -4,7 +4,7 @@
 Summary: Library providing XML and HTML support
 Name: libxml2
 Version: 2.9.1
-Release: 6%{?dist}%{?extra_release}.2
+Release: 6%{?dist}%{?extra_release}.3
 License: MIT
 Group: Development/Libraries
 Source: ftp://xmlsoft.org/libxml2/libxml2-%{version}.tar.gz
@@ -39,6 +39,22 @@ Patch121: libxml2-Bug-on-creating-new-stream-from-entity.patch
 Patch122: libxml2-CVE-2015-7500-Fix-memory-access-error-due-to-incorrect-entities-boundaries.patch
 Patch123: libxml2-CVE-2015-8242-Buffer-overead-with-HTML-parser-in-push-mode.patch
 Patch124: libxml2-CVE-2015-1819-Enforce-the-reader-to-run-in-constant-memory.patch
+patch125: libxml2-Add-missing-increments-of-recursion-depth-counter-to-XML-parser.patch
+patch126: libxml2-Avoid-building-recursive-entities.patch
+patch127: libxml2-Bug-757711-heap-buffer-overflow-in-xmlFAParsePosCharGroup-https-bugzilla.gnome.org-show_bug.cgi-id-757711.patch
+patch128: libxml2-Bug-758588-Heap-based-buffer-overread-in-xmlParserPrintFileContextInternal-https-bugzilla.gnome.org-show_bug.cgi-id-758588.patch
+patch129: libxml2-Bug-758605-Heap-based-buffer-overread-in-xmlDictAddString-https-bugzilla.gnome.org-show_bug.cgi-id-758605.patch
+patch130: libxml2-Bug-759398-Heap-use-after-free-in-xmlDictComputeFastKey-https-bugzilla.gnome.org-show_bug.cgi-id-759398.patch
+patch131: libxml2-Bug-763071-heap-buffer-overflow-in-xmlStrncat-https-bugzilla.gnome.org-show_bug.cgi-id-763071.patch
+patch132: libxml2-Fix-inappropriate-fetch-of-entities-content.patch
+patch133: libxml2-Fix-some-format-string-warnings-with-possible-format-string-vulnerability.patch
+patch134: libxml2-Heap-based-buffer-overread-in-htmlCurrentChar.patch
+patch135: libxml2-Heap-based-buffer-overread-in-xmlNextChar.patch
+patch136: libxml2-Heap-based-buffer-underreads-due-to-xmlParseName.patch
+patch137: libxml2-Heap-use-after-free-in-htmlParsePubidLiteral-and-htmlParseSystemiteral.patch
+patch138: libxml2-Heap-use-after-free-in-xmlSAX2AttributeNs.patch
+patch139: libxml2-More-format-string-warnings-with-possible-format-string-vulnerability.patch
+
 
 %description
 This library allows to manipulate XML files. It includes support
@@ -126,6 +142,21 @@ at parse time or later once the document has been modified.
 %patch122 -p1
 %patch123 -p1
 %patch124 -p1
+%patch125 -p1
+%patch126 -p1
+%patch127 -p1
+%patch128 -p1
+%patch129 -p1
+%patch130 -p1
+%patch131 -p1
+%patch132 -p1
+%patch133 -p1
+%patch134 -p1
+%patch135 -p1
+%patch136 -p1
+%patch137 -p1
+%patch138 -p1
+%patch139 -p1
 
 %build
 %configure
@@ -208,6 +239,23 @@ rm -fr %{buildroot}
 %doc doc/python.html
 
 %changelog
+* Mon Jun  6 2016 Daniel Veillard <veillard@redhat.com> - libxml2-2.9.1-6.3
+- Heap-based buffer overread in xmlNextChar (CVE-2016-1762)
+- Bug 763071: Heap-buffer-overflow in xmlStrncat <https://bugzilla.gnome.org/show_bug.cgi?id=763071> (CVE-2016-1834)
+- Bug 757711: Heap-buffer-overflow in xmlFAParsePosCharGroup <https://bugzilla.gnome.org/show_bug.cgi?id=757711> (CVE-2016-1840)
+- Bug 758588: Heap-based buffer overread in xmlParserPrintFileContextInternal <https://bugzilla.gnome.org/show_bug.cgi?id=758588> (CVE-2016-1838)
+- Bug 758605: Heap-based buffer overread in xmlDictAddString <https://bugzilla.gnome.org/show_bug.cgi?id=758605> (CVE-2016-1839)
+- Bug 759398: Heap use-after-free in xmlDictComputeFastKey <https://bugzilla.gnome.org/show_bug.cgi?id=759398> (CVE-2016-1836)
+- Fix inappropriate fetch of entities content (CVE-2016-4449)
+- Heap use-after-free in htmlParsePubidLiteral and htmlParseSystemiteral (CVE-2016-1837)
+- Heap use-after-free in xmlSAX2AttributeNs (CVE-2016-1835)
+- Heap-based buffer-underreads due to xmlParseName (CVE-2016-4447)
+- Heap-based buffer overread in htmlCurrentChar (CVE-2016-1833)
+- Add missing increments of recursion depth counter to XML parser. (CVE-2016-3705)
+- Avoid building recursive entities (CVE-2016-3627)
+- Fix some format string warnings with possible format string vulnerability (CVE-2016-4448)
+- More format string warnings with possible format string vulnerability (CVE-2016-4448)
+
 * Mon Nov 30 2015 Daniel Veillard <veillard@redhat.com> - 2.9.1-6.2
 - Fix a series of CVEs (rhbz#1286496)
 - CVE-2015-7941 Stop parsing on entities boundaries errors

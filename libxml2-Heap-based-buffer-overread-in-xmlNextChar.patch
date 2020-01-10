@@ -1,0 +1,24 @@
+commit 498a54c26abd0fbd6f7d02b6b6f0275b4390d821
+Author: Daniel Veillard <veillard@redhat.com>
+Date:   Tue Feb 9 12:55:29 2016 +0100
+
+    Heap-based buffer overread in xmlNextChar
+    
+    For https://bugzilla.gnome.org/show_bug.cgi?id=759671
+    
+    when the end of the internal subset isn't properly detected
+    xmlParseInternalSubset should just return instead of trying
+    to process input further.
+
+diff --git a/parser.c b/parser.c
+index f4fc310..b1215ca 100644
+--- a/parser.c
++++ b/parser.c
+@@ -8448,6 +8448,7 @@ xmlParseInternalSubset(xmlParserCtxtPtr ctxt) {
+      */
+     if (RAW != '>') {
+ 	xmlFatalErr(ctxt, XML_ERR_DOCTYPE_NOT_FINISHED, NULL);
++	return;
+     }
+     NEXT;
+ }
